@@ -2,12 +2,14 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import svgLoader from 'vite-svg-loader';
 import legacy from '@vitejs/plugin-legacy';
+import viteSvgIcons from 'vite-plugin-svg-icons';
+import cesium from 'vite-plugin-cesium';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers';
 import PkgConfig from 'vite-plugin-package-config';
 import checker from 'vite-plugin-checker';
-import cesium from 'vite-plugin-cesium';
+import { resolve } from 'path';
 
 export default (env) => {
   return [
@@ -19,6 +21,13 @@ export default (env) => {
     legacy({
       targets: ['defaults', 'not IE 11'],
     }),
+    viteSvgIcons({
+      // 指定需要缓存的图标文件夹
+      iconDirs: [resolve(process.cwd(), 'src/assets/svg')],
+      // 指定symbolId格式
+      symbolId: 'icon-[dir]-[name]',
+    }),
+    cesium(),
     AutoImport({
       dts: './src/auto-imports.d.ts',
       imports: ['vue', 'pinia', 'vue-router', '@vueuse/core'],
@@ -52,6 +61,5 @@ export default (env) => {
             },
           },
         }),
-    cesium(),
   ];
 };

@@ -7,6 +7,7 @@ declare module 'vue' {
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     CesiumMap: typeof import('./components/CesiumMap/index.vue')['default']
     Chart: typeof import('./components/Chart/index.vue')['default']
+    SvgIcon: typeof import('./components/SvgIcon/index.vue')['default']
   }
 }
 
